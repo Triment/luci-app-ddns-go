@@ -40,24 +40,27 @@ jobs:
           # - mipsel_74kc
           # - mipsel_mips32
           # - x86_64
-
+        sdk:
+          - openwrt-22.03
+          - SNAPSHOT
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       - name: Building packages
-        uses: openwrt/gh-action-sdk@c5663737ed9b02ab7b2c9133bdc97a59ce5136d1
+        uses: sbwml/openwrt-gh-action-sdk@main
         env:
-          ARCH: ${{ matrix.arch }}-openwrt-24.10
+          ARCH: ${{ matrix.arch }}-openwrt-24.10-${{ matrix.sdk }}
           FEEDNAME: packages_ci
           PACKAGES: luci-app-ddns-go
           NO_REFRESH_CHECK: true
+          V: s
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.arch }}
+          name: ${{ matrix.arch }}-${{ matrix.sdk }}
           path: bin/packages/${{ matrix.arch }}/packages_ci/*.[ai]pk
 
       - name: Upload packages
