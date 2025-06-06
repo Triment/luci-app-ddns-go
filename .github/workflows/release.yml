@@ -47,7 +47,7 @@ jobs:
           fetch-depth: 0
 
       - name: Building packages
-        uses: sbwml/openwrt-gh-action-sdk@main
+        uses: sbwml/openwrt-gh-action-sdk@c5663737ed9b02ab7b2c9133bdc97a59ce5136d1
         env:
           ARCH: ${{ matrix.arch }}-openwrt-24.10
           FEEDNAME: packages_ci
@@ -58,7 +58,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.arch }}
-          path: bin/packages/${{ matrix.arch }}/packages_ci/*.apk
+          path: bin/packages/${{ matrix.arch }}/packages_ci/*.[ai]pk
 
       - name: Upload packages
         uses: ncipollo/release-action@v1
@@ -67,4 +67,4 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           allowUpdates: true
           replacesArtifacts: true
-          artifacts: "bin/packages/${{ matrix.arch }}/packages_ci/*.apk"
+          artifacts: "bin/packages/${{ matrix.arch }}/packages_ci/*.[ai]pk"
