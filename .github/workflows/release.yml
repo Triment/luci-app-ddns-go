@@ -41,7 +41,7 @@ jobs:
           # - mipsel_mips32
           # - x86_64
         sdk:
-          - openwrt-22.03
+          - openwrt-24.10
           - SNAPSHOT
     steps:
       - uses: actions/checkout@v4
@@ -51,7 +51,7 @@ jobs:
       - name: Building packages
         uses: sbwml/openwrt-gh-action-sdk@main
         env:
-          ARCH: ${{ matrix.arch }}-openwrt-24.10-${{ matrix.sdk }}
+          ARCH: ${{ matrix.arch }}${{ matrix.sdk }}
           FEEDNAME: packages_ci
           PACKAGES: luci-app-ddns-go
           NO_REFRESH_CHECK: true
